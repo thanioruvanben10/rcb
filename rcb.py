@@ -15,7 +15,7 @@ ANCHOR_URL = input ("Enter : ")
 # -------------------------------------------
 
 def RecaptchaV3(ANCHOR_URL):
-    url_base = 'https://www.google.com/recaptcha/'
+    url_base = 'https://www.recaptcha.net/recaptcha/'
     post_data = "v={}&reason=q&c={}&k={}&co={}"
     
     client = requests.Session()
