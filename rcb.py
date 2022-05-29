@@ -12,7 +12,7 @@ https://www.google.com/recaptcha/api2/anchor?ar=1&k=...
 ANCHOR_URL = input("1 = ")
 
 def RecaptchaV3(ANCHOR_URL):
-    url_base = input("\n2= ")
+    url_base = "https://www.google.com/recaptcha/"
     post_data = "v={}&reason=q&c={}&k={}&co={}"
     client = requests.Session()
     client.headers.update({
