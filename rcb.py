@@ -34,9 +34,7 @@ def RecaptchaV3(ANCHOR_URL):
     
     res = client.post(url_base+'reload', params=f'k={params["k"]}', data=post_data)
     
-    answer = re.findall(r'"rresp","(.*?)"', res.text)[0]
-    
-    return answer
+    print ("\n👉",res)
     
 # -------------------------------------------
 
