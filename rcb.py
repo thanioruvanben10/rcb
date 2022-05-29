@@ -34,15 +34,6 @@ def RecaptchaV3(ANCHOR_URL):
     token = re.findall(r'"recaptcha-token" value="(.*?)"', res.text)
     print(token)
     
-    params = dict(pair.split('=') for pair in params.split('&'))
-    post_data = post_data.format(params["v"], token, params["k"], params["co"])
-    
-    res = client.post(url_base+'reload', params=f'k={params["k"]}', data=post_data)
-    
-    answer = re.findall(r'"rresp","(.*?)"', res.text)[0]
-    
-    return answer
-    
 # -------------------------------------------
 
 ans = RecaptchaV3(ANCHOR_URL)
