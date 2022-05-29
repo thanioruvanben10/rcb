@@ -27,15 +27,15 @@ def RecaptchaV3(ANCHOR_URL):
     url_base += matches[0]+'/'
     params = matches[1]
     res = client.get(url_base+'anchor', params=params)
-    print ("\n res 1 = ",res)
+    print ("\n res 1 = ",res.text)
     token = re.findall(r'"recaptcha-token" value="(.*?)"', res.text)[0]
     print ("\n token = ",token)
     params = dict(pair.split('=') for pair in params.split('&'))
-    print ("\n params = ",res)
+    print ("\n params = ",params)
     post_data = post_data.format(params["v"], token, params["k"], params["co"])
-    print ("\n post_data = ", post_data)
+    print ("\n post_data = ",post_data)
     res = client.post(url_base+'reload', params=f'k={params["k"]}', data=post_data)
-    print ("\n res2 = ",res)
+    print ("\n res2 = ",res.text)
     
 # -------------------------------------------
 
