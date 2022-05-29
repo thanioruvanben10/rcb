@@ -24,7 +24,8 @@ def RecaptchaV3(ANCHOR_URL):
         'content-type': 'application/x-www-form-urlencoded'
     })
     
-    matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)[0]
+    matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)
+    print(matches)
     url_base += matches[0]+'/'
     params = matches[1]
     
