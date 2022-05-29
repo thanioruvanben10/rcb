@@ -15,7 +15,7 @@ ANCHOR_URL = input ("Enter : ")
 # -------------------------------------------
 
 def RecaptchaV3(ANCHOR_URL):
-    url_base = 'https://www.recaptcha.net/recaptcha/'
+    url_base = 'https://www.google.com/recaptcha/'
     post_data = "v={}&reason=q&c={}&k={}&co={}"
     
     client = requests.Session()
@@ -24,7 +24,7 @@ def RecaptchaV3(ANCHOR_URL):
         'content-type': 'application/x-www-form-urlencoded'
     })
     
-    matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)
+    matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)[0]
     print(matches)
     url_base += matches[0]+'/'
     params = matches[1]
