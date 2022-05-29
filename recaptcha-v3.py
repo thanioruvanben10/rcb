@@ -10,7 +10,7 @@ https://www.google.com/recaptcha/api2/anchor?ar=1&k=...
 
 '''
 
-ANCHOR_URL = ""
+ANCHOR_URL = input ("Enter : ")
 
 # -------------------------------------------
 
