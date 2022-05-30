@@ -15,4 +15,4 @@ a14=input("Enter Mx player url here: ")
 a1=scraper.get(a14).text
 soup4=BeautifulSoup(a1,'html.parser')
 a11=soup4.find_all("iframe",type="src")
-print(a11.text)
+print(a11)
