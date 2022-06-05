@@ -16,5 +16,6 @@ scraper = cloudscraper.create_scraper(session)
 a14=input("Enter Mx player url here: ")
 a1=scraper.get(a14).text
 soup4=BeautifulSoup(a1,'html.parser')
+print(soup4)
 a11=soup4.find_all("iframe")
 print(a11)
