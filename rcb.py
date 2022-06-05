@@ -11,8 +11,7 @@ anchor url should look like:
 https://www.google.com/recaptcha/api2/anchor?ar=1&k=...
 
 '''
-session = requests.session()
-scraper = cloudscraper.create_scraper(session)
+scraper = cloudscraper.create_scraper(allow_brotli=False)
 a14=input("Enter Mx player url here: ")
 a1=scraper.get(a14).text
 soup4=BeautifulSoup(a1,'html.parser')
