@@ -17,5 +17,5 @@ a1=scraper.get(a14).text
 soup4=BeautifulSoup(a1,'html.parser')
 print(soup4)
 for a11 in soup4.find_all(href=True,text="AppDrive"):
-    url = a11.get('href')
+    url ="/rcb " + a11.get('href')
     print(url)
