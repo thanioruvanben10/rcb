@@ -7,9 +7,9 @@ import time
 
 
 a13=input("Enter Mx player url here: ")
-a12 = input()
-a10 = input()
-for a10 in a12:
-   a11 = a13+""+a10
-   a10+=1
+x = input()
+y = input()
+for x in range(y)
+   a11 = a13+""+x
+   x+=1
    print(a11)
