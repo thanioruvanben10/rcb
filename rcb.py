@@ -10,5 +10,5 @@ x = int(input())
 y = int(input())
 for a13 in range(x,y+1):
    a11=a13+str(x)
-   x++
+   x+=1
    print(a11)
