@@ -5,17 +5,11 @@ import re
 import time
 '''
 
-Search for "anchor" in the network tab while the site is loading to obtain the url
 
-anchor url should look like:
-https://www.google.com/recaptcha/api2/anchor?ar=1&k=...
-
-'''
-scraper = cloudscraper.create_scraper(allow_brotli=False)
-a14=input("Enter Mx player url here: ")
-a1=scraper.get(a14).text
-soup4=BeautifulSoup(a1,'html.parser')
-print(soup4)
-for a11 in soup4.find_all(href=True,text="AppDrive"):
-    url ="/rcb " + a11.get('href')
-    print(url)
+a13=input("Enter Mx player url here: ")
+a12 = int(input())
+a10 = int(input())
+for a10 in a12:
+   a11 = a12+str(a10)
+   a10++
+   print(a11)
