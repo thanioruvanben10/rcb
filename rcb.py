@@ -10,6 +10,6 @@ a13=input("Enter Mx player url here: ")
 x = input()
 y = input()
 for x in range(y)
-   a11 = a13+""+x
+   a11=a13+x
    x+=1
    print(a11)
