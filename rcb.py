@@ -1,10 +1,6 @@
 import requests
+url = input ()
+values = {'password': 'joinstreamhub'}
 
-url = input("Enter link: ")
-password = input("Enter PWD: ")
-Login = 'submit'
-r = requests.post(url,data={
-    'password': password,
-    'Login': Login
-    })
-print(r)
+r = requests.post(url, data=values)
+print r.content
