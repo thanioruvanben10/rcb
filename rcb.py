@@ -1,6 +1,7 @@
 import requests
 url = input ()
-values = {'password': 'joinstreamhub'}
+values = {'user': 'admin',
+          'password': 'joinstreamhub'}
 
 r = requests.post(url, data=values)
 print (r.content)
