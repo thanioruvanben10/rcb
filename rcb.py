@@ -14,7 +14,6 @@ def gplinks_bypass(url: str):
     final_url = f'{p.scheme}://{p.netloc}/links/go'
 
     res = client.head(url)
-    print (res.content)
     header_loc = res.headers['location']
     param = header_loc.split('postid=')[-1]
     req_url = f'{p.scheme}://{p.netloc}/{param}'
@@ -24,7 +23,6 @@ def gplinks_bypass(url: str):
 
     h = { 'referer': ref_url }
     res = client.get(req_url, headers=h, allow_redirects=False)
-    print ("\n\n\n",res.content)
     bs4 = BeautifulSoup(res.content, 'html.parser')
     print ("\n\n\n",bs4)
     inputs = bs4.find_all('input')
