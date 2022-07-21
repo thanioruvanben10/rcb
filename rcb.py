@@ -36,6 +36,11 @@ def gplinks_bypass(url: str):
     print ("\n\n\n",req_url)
     print ("\n\n\n",final_url)
     print ("\n\n\n",data)
+    x=req_url
+    a1=scraper.get(x).text
+    soup4=BeautifulSoup(a1,'html.parser')
+    print("\n\n New Content \n\n",soup4)
+    a11=soup4.find_all(src:True,text="reCAPTCHA")
     res = client.post(final_url, headers=h, data=data)
     try:
         return res.json()['url'].replace('\/','/')
