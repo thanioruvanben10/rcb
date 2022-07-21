@@ -33,6 +33,9 @@ def gplinks_bypass(url: str):
         'x-requested-with': 'XMLHttpRequest',
     }
     time.sleep(10)
+    print ("\n\n\n",req_url)
+    print ("\n\n\n",final_url)
+    print ("\n\n\n",data)
     res = client.post(final_url, headers=h, data=data)
     try:
         return res.json()['url'].replace('\/','/')
