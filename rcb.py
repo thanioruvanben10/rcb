@@ -25,7 +25,7 @@ def gplinks_bypass(url: str):
     res = client.get(req_url, headers=h, allow_redirects=False)
     bs4 = BeautifulSoup(res.content, 'html.parser')
     print ("\n\n\n",bs4)
-    inputs = bs4.find_all('input')
+    inputs = bs4.form.findAll("input", {"name": re.compile(r"token$")})
     data = { input.get('name'): input.get('value') for input in inputs }
 
     h = {
