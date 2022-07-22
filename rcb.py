@@ -26,7 +26,7 @@ def gplinks_bypass(url: str):
 
     bs4 = BeautifulSoup(res.content, 'html.parser')
     inputs = bs4.find_all('input')
-    inputs2 = bs4.find_all(a,href=True)
+    inputs2 = bs4.find_all("a",href=True)
     print(inputs2)
     data = { input.get('name'): input.get('value') for input in inputs }
 
