@@ -1,47 +1,90 @@
-import time
-import cloudscraper
 import re
-from urllib.parse import urlparse
+import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
-# eg: https://gplinks.co/XXXX
-url = input()
+# ouo url
+# Examples:
+# https://ouo.io/HxFVfD - ouo.io links (no account -> only one step)
+# https://ouo.press/Zu7Vs5 - ouo.io links (with account -> two steps)
+# Can exchange between ouo.press and ouo.io
 
-# =======================================
+url = "https://ouo.press/Zu7Vs5"
 
-def gplinks_bypass(url: str):
-    client = cloudscraper.create_scraper(allow_brotli=False)
-    p = urlparse(url)
-    final_url = f'{p.scheme}://{p.netloc}/links/go'
+# -------------------------------------------
+# RECAPTCHA v3 BYPASS
+# code from https://github.com/xcscxr/Recaptcha-v3-bypass
 
-    res = client.head(url)
-    header_loc = res.headers['location']
-    param = header_loc.split('postid=')[-1]
-    req_url = f'{p.scheme}://{p.netloc}/{param}'
+def RecaptchaV3(ANCHOR_URL):
+    url_base = 'https://www.google.com/recaptcha/'
+    post_data = "v={}&reason=q&c={}&k={}&co={}"
+    client = requests.Session()
+    client.headers.update({
+        'content-type': 'application/x-www-form-urlencoded'
+    })
+    matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)[0]
+    url_base += matches[0]+'/'
+    params = matches[1]
+    res = client.get(url_base+'anchor', params=params)
+    token = re.findall(r'"recaptcha-token" value="(.*?)"', res.text)[0]
+    params = dict(pair.split('=') for pair in params.split('&'))
+    post_data = post_data.format(params["v"], token, params["k"], params["co"])
+    res = client.post(url_base+'reload', params=f'k={params["k"]}', data=post_data)
+    answer = re.findall(r'"rresp","(.*?)"', res.text)[0]    
+    return answer
 
-    p = urlparse(header_loc)
-    ref_url = f'{p.scheme}://{p.netloc}/'
+ANCHOR_URL = 'https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Lcr1ncUAAAAAH3cghg6cOTPGARa8adOf-y9zv2x&co=aHR0cHM6Ly9vdW8uaW86NDQz&hl=en&v=1B_yv3CBEV10KtI2HJ6eEXhJ&size=invisible&cb=4xnsug1vufyr'
 
-    h = { 'referer': ref_url }
-    res = client.get(req_url, headers=h, allow_redirects=False)
-    bs4 = BeautifulSoup(res.content, 'html.parser')
-    inputs = bs4.find_all("input")
-    print ("\n\n\n",inputs)
-    data = { input.get('name'): input.get('value') for input in inputs }
+# -------------------------------------------
+# OUO BYPASS
 
-    h = {
-        'referer': ref_url,
-        'x-requested-with': 'XMLHttpRequest',
+def ouo_bypass(url):
+    client = requests.Session()
+    tempurl = url.replace("ouo.press", "ouo.io")
+    p = urlparse(tempurl)
+    id = tempurl.split('/')[-1]
+    
+    res = client.get(tempurl)
+    next_url = f"{p.scheme}://{p.hostname}/go/{id}"
+
+    for _ in range(2):
+
+        if res.headers.get('Location'):
+            break
+
+        bs4 = BeautifulSoup(res.content, 'lxml')
+        inputs = bs4.form.findAll("input", {"name": re.compile(r"token$")})
+        print (inputs)
+        data = { input.get('name'): input.get('value') for input in inputs }
+        
+        ans = RecaptchaV3(ANCHOR_URL)
+        data['x-token'] = ans
+        print("\n\n\n",ans)
+        
+        h = {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+        
+        res = client.post(next_url, data=data, headers=h, allow_redirects=False)
+        next_url = f"{p.scheme}://{p.hostname}/xreallcygo/{id}"
+
+    return {
+        'original_link': url,
+        'bypassed_link': res.headers.get('Location')
     }
-    time.sleep(10)
-    print ("\n\n\n",req_url)
-    print ("\n\n\n",final_url)
-    print ("\n\n\n",data)
-    res = client.post(final_url, headers=h, data=data)
-    try:
-        return res.json()['url'].replace('\/','/')
-    except: return 'Something went wrong :('
+    
+# -------------------------------------------
 
-# =======================================
+out = ouo_bypass(url)
+print(out)
 
-print(gplinks_bypass(url))
+'''
+SAMPLE OUTPUT
+
+{
+    'original_link': 'https://ouo.io/go/HxFVfD',
+    'bypassed_link': 'https://some-link.com'
+}
+
+'''
+# Don't kang without credits ;)
