@@ -26,6 +26,7 @@ def RecaptchaV3(ANCHOR_URL):
     url_base += matches[0]+'/'
     params = matches[1]
     res = client.get(url_base+'anchor', params=params)
+    print("\n\n\n",res,"\n\n\n")
     token = re.findall(r'"token" value="(.*?)"', res.text)
     print("\n\n\n",token,"\n\n\n")
     params = dict(pair.split('=') for pair in params.split('&'))
