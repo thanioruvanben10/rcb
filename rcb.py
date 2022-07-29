@@ -8,4 +8,5 @@ soup4=BeautifulSoup(lmno,'html.parser')
 print (soup4)
 for pqrs in soup4.find_all('a',href=True):
     mag_reg= r"magnet:\?xt=urn:btih:[a-zA-Z0-9]*"
+    tuvw=re_findall(mag_reg, pqrs)
     print("/Qbmirror ",tuvw)
