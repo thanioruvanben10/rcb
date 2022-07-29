@@ -6,6 +6,6 @@ scraper = cloudscraper.create_scraper(allow_brotli=False)
 lmno=scraper.get(hijk).text
 soup4=BeautifulSoup(lmno,'html.parser')
 print (soup4)
-for pqrs in soup4.find_all(href=True,alt="magnet.png"):
-    tuvw =pqrs.get('href')
+for pqrs in soup4.find_all('a',href=True):
+    mag_reg= r"magnet:\?xt=urn:btih:[a-zA-Z0-9]*"
     print("/Qbmirror ",tuvw)
