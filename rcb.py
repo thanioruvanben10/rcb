@@ -4,7 +4,7 @@ import requests
 import cloudscraper
 from urllib.parse import urlparse
 
-url = open('1.txt', 'r').read()
+url = input()
 print("You Have Entered:")
 print(url)
 print("Checking Link!")
