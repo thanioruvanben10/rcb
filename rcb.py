@@ -1,33 +1,15 @@
-import re
-import time
-import requests
-import cloudscraper
-from urllib.parse import urlparse
+import requests,json
+video_id = "1000036883"
+cdn_url = "http://getcdn.hotstar.com/AVS/besc?action=GetCDN&asJson=Y&channel=TABLET&id=" + video_id + "&type=VOD"
+header = {
+    'Accept': '*/*',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Referer': 'https://hotstar.com/',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+}
+response = requests.get(url=cdn_url, headers=header)
 
-url = input()
-print("You Have Entered:")
-print(url)
-print("Checking Link!")
-
-#Extra fit for site
-if "redirect" in url:
-    site = requests.get(url)
-    url = site.url
-else:
-    url = url
-
-# ==============================================
-print("Bypassing Link...")
-def droplink_bypass(url):
-    api = "https://api.emilyx.in/api"
-    client = cloudscraper.create_scraper(allow_brotli=False)
-    resp = client.get(url)
-    if resp.status_code == 404:
-        return "File not found/The link you entered is wrong!"
-    resp = client.post(api, json={"type": "droplink", "url": url})
-    res = resp.json()
-    return res['url']
-
-# ==============================================
-
-print(droplink_bypass(url))
+json_response = json.loads(response.text.encode('utf-8'))
+stream_url = json_response['resultObj']['src'].encode('utf-8')
+print(stream_url)
