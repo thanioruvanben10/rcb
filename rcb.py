@@ -44,4 +44,5 @@ def atozcartoonist_bypasser(psa_url):
                 print(e)
 
 x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
-atozcartoonist_bypasser(x)
+y = atozcartoonist_bypasser(x)
+print(y)
