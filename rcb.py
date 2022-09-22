@@ -10,9 +10,7 @@ def expertlinks_scrape(url):
     }
     res = client.get(url, cookies={}, headers=h)
     test = json.loads(res.content)
-    print(test)
-    value = test['value']
-    print(value)
+    return test
     
 def atozcartoonist_bypasser(psa_url):
     client = cloudscraper.create_scraper(allow_brotli=False)
@@ -23,8 +21,9 @@ def atozcartoonist_bypasser(psa_url):
             try:
                 tuvw =link.get('href')
                 x = executor.submit(expertlinks_scrape, tuvw)
-      
+                return x
             except Exception as e:
                 print(e)
 x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
 y = atozcartoonist_bypasser(x)
+print(y)
