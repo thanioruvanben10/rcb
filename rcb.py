@@ -1,4 +1,4 @@
-/exec import base64
+import base64
 import re
 import cloudscraper 
 import concurrent.futures
