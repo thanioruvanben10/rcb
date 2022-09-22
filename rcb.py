@@ -35,7 +35,7 @@ def atozcartoonist_bypasser(psa_url):
     client = cloudscraper.create_scraper(allow_brotli=False)
     r = client.get(psa_url)
     soup = BeautifulSoup(r.text, "html.parser").find_all(class_="gdlink")
-    
+    print (soup)
     with concurrent.futures.ThreadPoolExecutor() as executor:
         for link in soup:
             try:
