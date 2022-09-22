@@ -25,5 +25,5 @@ def atozcartoonist_bypasser(psa_url):
             except Exception as e:
                 print(e)
 
-url = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
-atozcartoonist_bypasser(url)
+x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
+atozcartoonist_bypasser(x)
