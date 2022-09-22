@@ -39,8 +39,7 @@ def atozcartoonist_bypasser(psa_url):
     with concurrent.futures.ThreadPoolExecutor() as executor:
         for link in soup:
             try:
-                exit_gate = link.a.get("href")
-                executor.submit(expertlinks_scrape, exit_gate)
+                executor.submit(expertlinks_scrape, link)
             except Exception as e:
                 print(e)
 
