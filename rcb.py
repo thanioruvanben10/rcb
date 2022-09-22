@@ -11,7 +11,7 @@ def expertlinks_scrape(url):
     }
     res = client.get(url, cookies={}, headers=h)
     value = re.findall(r'value=\w+',res.text)
-    return value
+    print(value)
 
 def atozcartoonist_bypasser(psa_url):
     client = cloudscraper.create_scraper(allow_brotli=False)
