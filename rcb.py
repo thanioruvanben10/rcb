@@ -10,9 +10,8 @@ def expertlinks_scrape(url):
     'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
     }
     res = client.get(url, cookies={}, headers=h)
-    url = re.findall(r'value=[-\w]+',res.text)[1]
-    result = base64.b64decode(url).decode('utf-8')
-    print (result)
+    url = re.findall('value=[-\w]+',res.text)
+    print(url)
     
 def atozcartoonist_bypasser(psa_url):
     client = cloudscraper.create_scraper(allow_brotli=False)
