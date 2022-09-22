@@ -11,7 +11,7 @@ def expertlinks_scrape(url):
     }
     res = client.get(url, cookies={}, headers=h)
     print(res.text)
-    value = re.findall(r'value=.[-\w]+\.[-\w]+\.*',res.text)
+    value = re.findall(r'value=.^[ A-Za-z0-9_@./#&+-]*$',res.text)
     print(value)
 
 def atozcartoonist_bypasser(psa_url):
