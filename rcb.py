@@ -9,7 +9,7 @@ def expertlinks_scrape(url):
     'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
     }
     res = client.get(url, cookies={}, headers=h)
-    print(json.loads(res.text))
+    print(res.text)
     
 def atozcartoonist_bypasser(psa_url):
     client = cloudscraper.create_scraper(allow_brotli=False)
@@ -23,4 +23,4 @@ def atozcartoonist_bypasser(psa_url):
             except Exception as e:
                 print(e)
 x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
-y = atozcartoonist_bypasser(x)
+atozcartoonist_bypasser(x)
