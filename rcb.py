@@ -19,9 +19,10 @@ def atozcartoonist_bypasser(psa_url):
         for link in soup:
             try:
                 tuvw =link.get('href')
-                print (tuvw)
-                executor.submit(expertlinks_scrape, tuvw)
+                x = executor.submit(expertlinks_scrape, tuvw)
+                return x
             except Exception as e:
                 print(e)
 x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
 y = atozcartoonist_bypasser(x)
+print(y)
