@@ -2,7 +2,7 @@ import base64
 import re
 import cloudscraper 
 import concurrent.futures
-from bs4  import BeautifulSoup
+from bs4 import BeautifulSoup
 def expertlinks_scrape(url):
     client = cloudscraper.create_scraper(allow_brotli=False)    
     h = {
