@@ -1,4 +1,4 @@
-/exec import re
+import re
 import json
 import cloudscraper 
 import concurrent.futures
