@@ -17,10 +17,15 @@ def expertlinks_scrape(url):
     newurl = coderes['linkr']
     if "inbbotlist" in newurl:
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            xy = executor.submit(expertlinks_scrape, newurl)
-    else:
-        pass
-    print(newurl)
+            xy = executor.submit(expertlinks_scrape_, newurl)
+
+def expertlinks_scrape_(url):
+    client = cloudscraper.create_scraper(allow_brotli=False)    
+    h = {
+    'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    }
+    res = client.get(url, cookies={}, headers=h)
+    print(res.text)
 
 def atozcartoonist_bypasser(psa_url):
     client = cloudscraper.create_scraper(allow_brotli=False)
