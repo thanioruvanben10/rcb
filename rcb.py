@@ -39,6 +39,6 @@ def atozcartoonist_bypasser(psa_url):
                 x = executor.submit(expertlinks_scrape, tuvw)
             except Exception as e:
                 print(e)
-            break
+
 x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
 atozcartoonist_bypasser(x)
