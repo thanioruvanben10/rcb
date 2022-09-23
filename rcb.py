@@ -12,7 +12,7 @@ def expertlinks_scrape(url):
     res = client.get(url, cookies={}, headers=h)
     value = re.findall(r'value=\"(.*?)\"',res.text)
     code = base64.b64decode(value[1]).decode('utf-8')
-    coderes = json.loads(code.content)
+    coderes = json.loads(code)
     newurl = coderes['linkr']
     print(newurl)
 
