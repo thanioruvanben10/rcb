@@ -18,7 +18,7 @@ def expertlinks_scrape(url):
         with concurrent.futures.ThreadPoolExecutor() as executor:
             x = executor.submit(expertlinks_scrape, tuvw)
     else:
-        continue
+        pass
     print(newurl)
 
 def atozcartoonist_bypasser(psa_url):
