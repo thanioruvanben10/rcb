@@ -13,7 +13,6 @@ def expertlinks_scrape(url):
     value = re.findall(r'value=\"(.*?)\"',res.text)
     code = base64.b64decode(value[1]).decode('utf-8')
     coderes = json.loads(code)
-    print(coderes)
     newurl = coderes['linkr']
     if "inbbotlist" in newurl:
         with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -26,8 +25,9 @@ def expertlinks_scrape_(url):
     }
     res = client.get(url, cookies={}, headers=h)
     value = re.findall(r'value=\"(.*?)\"',res.text)
+    print(value)
     result = base64.b64decode(value).decode('utf-8')
-    print(result)
+    
 
 def atozcartoonist_bypasser(psa_url):
     client = cloudscraper.create_scraper(allow_brotli=False)
