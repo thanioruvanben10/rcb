@@ -16,7 +16,7 @@ def expertlinks_scrape(url):
     newurl = coderes['linkr']
     if "inbbotlist" in newurl:
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            x = executor.submit(expertlinks_scrape, tuvw)
+            x = executor.submit(expertlinks_scrape, newurl)
     else:
         pass
     print(newurl)
