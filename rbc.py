@@ -8,7 +8,7 @@ def tmb_bypass(url):
     with concurrent.futures.ThreadPoolExecutor() as executor:
         x = executor.submit(inbbotlist, url)
 def inbbotlist(aurl):
-    scraper = cloudscraper.create_scraper()
+    scraper = cloudscraper.create_scraper(allow_brotli=False)
     h = {'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'}
     res = scraper.get(url, cookies={}, headers=h)
     return res
