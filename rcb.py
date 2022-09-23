@@ -14,6 +14,11 @@ def expertlinks_scrape(url):
     code = base64.b64decode(value[1]).decode('utf-8')
     coderes = json.loads(code)
     newurl = coderes['linkr']
+    if "inbbotlist" in newurl:
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            x = executor.submit(expertlinks_scrape, tuvw)
+        else:
+            continue
     print(newurl)
 
 def atozcartoonist_bypasser(psa_url):
