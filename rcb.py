@@ -17,8 +17,8 @@ def expertlinks_scrape(url):
     if "inbbotlist" in newurl:
         with concurrent.futures.ThreadPoolExecutor() as executor:
             x = executor.submit(expertlinks_scrape, tuvw)
-        else:
-            continue
+    else:
+        continue
     print(newurl)
 
 def atozcartoonist_bypasser(psa_url):
