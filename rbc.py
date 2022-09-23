@@ -12,3 +12,4 @@ def inbbotlist(aurl):
     h = {'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36'}
     res = scraper.get(url, cookies={}, headers=h)
     print(res)
+tmb_bypass(url)
