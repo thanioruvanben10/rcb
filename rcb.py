@@ -13,10 +13,11 @@ def expertlinks_scrape(url):
     value = re.findall(r'value=\"(.*?)\"',res.text)
     code = base64.b64decode(value[1]).decode('utf-8')
     coderes = json.loads(code)
+    print(coderes)
     newurl = coderes['linkr']
     if "inbbotlist" in newurl:
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            x = executor.submit(expertlinks_scrape, newurl)
+            xy = executor.submit(expertlinks_scrape, newurl)
     else:
         pass
     print(newurl)
