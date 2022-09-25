@@ -1,7 +1,7 @@
 import base64
 import re
 import json
-import cloudscraper 
+import cloudscraper
 import requests
 import concurrent.futures
 from bs4 import BeautifulSoup
@@ -10,7 +10,7 @@ def expertlinks_scrape(url):
     h = {
     'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
     }
-    res = client.get(url, cookies={}, headers=h)
+    res = requests.get(url, cookies={}, headers=h)
     value = re.findall(r'value=\"(.*?)\"',res.text)
     code = base64.b64decode(value[1]).decode('utf-8')
     coderes = json.loads(code)
