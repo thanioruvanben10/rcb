@@ -30,10 +30,10 @@ def psa_bypasser(url):
 	'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
 	}
 	res = client.get(url, cookies={}, headers=h)
-	print(res.text)
+	print("RESULT : ",res.text)
 			
  
-site = request.get("https://gplinks.co/HwsEUBZ0")
+site = requests.get("https://gplinks.co/HwsEUBZ0")
 urlz = site.url
-print (urlx)
+print ("URLX : ",urlx)
 psa_bypasser(urlx)
