@@ -33,7 +33,7 @@ def expertlinks_scrape_(url):
 def atozcartoonist_bypasser(urlx):
     with concurrent.futures.ThreadPoolExecutor() as executor:
             try:
-                site = requests.get(url)
+                site = requests.get(urlx)
                 zipk = site.url
                 x = executor.submit(expertlinks_scrape,zipk)
             except Exception as e:
