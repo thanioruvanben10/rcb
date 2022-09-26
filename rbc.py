@@ -34,6 +34,6 @@ def psa_bypasser(url):
 			
  
 site = requests.get("https://gplinks.co/HwsEUBZ0")
-urlz = site.url
+urlx = site.url
 print ("URLX : ",urlx)
 psa_bypasser(urlx)
