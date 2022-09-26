@@ -30,10 +30,12 @@ def expertlinks_scrape_(url):
     result = base64.b64decode(value[0]).decode('utf-8')
     print(result)
 
-def atozcartoonist_bypasser(url):
+def atozcartoonist_bypasser(urlx):
     with concurrent.futures.ThreadPoolExecutor() as executor:
             try:
-                x = executor.submit(expertlinks_scrape,url)
+                site = requests.get(url)
+                zipk = site.url
+                x = executor.submit(expertlinks_scrape,zipk)
             except Exception as e:
                 print(e)
 
