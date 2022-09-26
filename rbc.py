@@ -15,9 +15,10 @@ def expertlinks_scrape(url):
     code = base64.b64decode(value[1]).decode('utf-8')
     coderes = json.loads(code)
     newurl = coderes['linkr']
-    if "inbbotlist" in newurl:
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            xy = executor.submit(expertlinks_scrape_, newurl)
+    #if "inbbotlist" in newurl:
+        #with concurrent.futures.ThreadPoolExecutor() as executor:
+            #xy = executor.submit(expertlinks_scrape_, newurl)
+    return code
 
 def expertlinks_scrape_(url):
     client = cloudscraper.create_scraper(allow_brotli=False)    
@@ -30,16 +31,12 @@ def expertlinks_scrape_(url):
     print(result)
 
 def atozcartoonist_bypasser(psa_url):
-    client = cloudscraper.create_scraper(allow_brotli=False)
-    r = requests.get(psa_url)
-    soup = BeautifulSoup(r.text, "html.parser").find_all(class_="gdlink")
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        for link in soup:
             try:
                 tuvw =link.get('href')
                 x = executor.submit(expertlinks_scrape, tuvw)
             except Exception as e:
                 print(e)
 
-x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
+x = "https://gplinks.co/HwsEUBZ0"
 atozcartoonist_bypasser(x)
