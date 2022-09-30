@@ -25,7 +25,6 @@ def login(mobile_number):
         },
         data = '{"number":"+91' + mobile_number + '","otp":"' + OTP + '"}')
         creds = json.loads(verify.content)
-        print (creds)
         load_creds(creds)
     else:
         print ("Wrong/Unregistered Mobile Number (ensure there's no +91 or 0 in the beginning)")
