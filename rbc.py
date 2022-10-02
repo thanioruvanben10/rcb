@@ -1,39 +1,44 @@
-import time
-import requests 
+import base64
 import re
+import json
 import cloudscraper 
-from bs4  import BeautifulSoup
+import concurrent.futures
+from bs4 import BeautifulSoup
+def expertlinks_scrape(url):
+    client = cloudscraper.create_scraper(allow_brotli=False)    
+    h = {
+    'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    }
+    res = client.get(url, cookies={}, headers=h)
+    value = re.findall(r'value=\"(.*?)\"',res.text)
+    code = base64.b64decode(value[1]).decode('utf-8')
+    coderes = json.loads(code)
+    newurl = coderes['linkr']
+    if "inbbotlist" in newurl:
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            xy = executor.submit(expertlinks_scrape_, newurl)
 
+def expertlinks_scrape_(url):
+    client = cloudscraper.create_scraper(allow_brotli=False)    
+    h = {
+    'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+    }
+    res = client.get(url, cookies={}, headers=h)
+    value = re.findall(r'value=\"(.*?)\"',res.text)
+    result = base64.b64decode(value[0]).decode('utf-8')
+    print(result)
 
-def try2link_bypass(url):
-	client = cloudscraper.create_scraper(allow_brotli=False)
-	
-	url = url[:-1] if url[-1] == '/' else url
-	
-	params = (('d', int(time.time()) + (60 * 4)),)
-	r = client.get(url, params=params, headers= {'Referer': 'https://newforex.online/'})
-	
-	soup = BeautifulSoup(r.text, 'html.parser')
-	inputs = soup.find(id="go-link").find_all(name="input")
-	data = { input.get('name'): input.get('value') for input in inputs }	
-	time.sleep(7)
-	
-	headers = {'Host': 'try2link.com', 'X-Requested-With': 'XMLHttpRequest', 'Origin': 'https://try2link.com', 'Referer': url}
-	
-	bypassed_url = client.post('https://try2link.com/links/go', headers=headers,data=data)
-	return bypassed_url.json()["url"]
-		
+def atozcartoonist_bypasser(psa_url):
+    client = cloudscraper.create_scraper(allow_brotli=False)
+    r = client.get(psa_url)
+    soup = BeautifulSoup(r.text, "html.parser").find_all(class_="gdlink")
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        for link in soup:
+            try:
+                tuvw =link.get('href')
+                x = executor.submit(expertlinks_scrape, tuvw)
+            except Exception as e:
+                print(e)
 
-def psa_bypasser(url):
-	client = cloudscraper.create_scraper(allow_brotli=False)	
-	h = {
-	'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
-	}
-	res = client.get(url, cookies={}, headers=h)
-	print("RESULT : ",res.text)
-			
- 
-site = requests.get("https://gplinks.co/HwsEUBZ0")
-urlx = site.url
-print ("URLX : ",urlx)
-psa_bypasser(urlx)
+x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
+atozcartoonist_bypasser(x)
