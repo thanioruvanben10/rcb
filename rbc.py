@@ -1,6 +1,7 @@
 import base64
 import re
 import json
+import requests 
 import cloudscraper 
 import concurrent.futures
 from bs4 import BeautifulSoup
@@ -9,7 +10,7 @@ def expertlinks_scrape(url):
     h = {
     'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
     }
-    res = client.get(url, cookies={}, headers=h)
+    res = requests.get(url, cookies={}, headers=h)
     value = re.findall(r'value=\"(.*?)\"',res.text)
     code = base64.b64decode(value[1]).decode('utf-8')
     coderes = json.loads(code)
@@ -23,14 +24,14 @@ def expertlinks_scrape_(url):
     h = {
     'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
     }
-    res = client.get(url, cookies={}, headers=h)
+    res = requests.get(url, cookies={}, headers=h)
     value = re.findall(r'value=\"(.*?)\"',res.text)
     result = base64.b64decode(value[0]).decode('utf-8')
     print(result)
 
 def atozcartoonist_bypasser(psa_url):
     client = cloudscraper.create_scraper(allow_brotli=False)
-    r = client.get(psa_url)
+    r = requests.get(psa_url)
     soup = BeautifulSoup(r.text, "html.parser").find_all(class_="gdlink")
     with concurrent.futures.ThreadPoolExecutor() as executor:
         for link in soup:
