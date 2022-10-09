@@ -1,44 +1,34 @@
-import base64
 import re
-import json
-import cloudscraper 
-import concurrent.futures
-from bs4 import BeautifulSoup
-def expertlinks_scrape(url):
-    client = cloudscraper.create_scraper(allow_brotli=False)    
-    h = {
-    'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
-    }
-    res = client.get(url, cookies={}, headers=h)
-    value = re.findall(r'value=\"(.*?)\"',res.text)
-    code = base64.b64decode(value[1]).decode('utf-8')
-    coderes = json.loads(code)
-    newurl = coderes['linkr']
-    if "inbbotlist" in newurl:
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            xy = executor.submit(expertlinks_scrape_, newurl)
+import requests
 
-def expertlinks_scrape_(url):
-    client = cloudscraper.create_scraper(allow_brotli=False)    
-    h = {
-    'upgrade-insecure-requests': '1', 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
-    }
-    res = client.get(url, cookies={}, headers=h)
-    value = re.findall(r'value=\"(.*?)\"',res.text)
-    result = base64.b64decode(value[0]).decode('utf-8')
-    print(result)
+'''
 
-def atozcartoonist_bypasser(psa_url):
-    client = cloudscraper.create_scraper(allow_brotli=False)
-    r = client.get(psa_url)
-    soup = BeautifulSoup(r.text, "html.parser").find_all(class_="gdlink")
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        for link in soup:
-            try:
-                tuvw =link.get('href')
-                x = executor.submit(expertlinks_scrape, tuvw)
-            except Exception as e:
-                print(e)
+Search for "anchor" in the network tab while the site is loading to obtain the url
 
-x = "https://themoviesboss.shop/tvshows/thai-cave-rescue-2022-season-1-all-episodes-donwload-hindi-multi-audio-nf-web-dl/"
-atozcartoonist_bypasser(x)
+anchor url should look like:
+https://www.google.com/recaptcha/api2/anchor?ar=1&k=...
+
+'''
+
+ANCHOR_URL = "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Lcr1ncUAAAAAH3cghg6cOTPGARa8adOf-y9zv2x&co=aHR0cHM6Ly9vdW8uaW86NDQz&hl=en&v=1B_yv3CBEV10KtI2HJ6eEXhJ&size=invisible&cb=4xnsug1vufyr"
+
+# -------------------------------------------
+
+def RecaptchaV3(ANCHOR_URL):
+    url_base = 'https://www.google.com/recaptcha/'
+    post_data = "v={}&reason=q&c={}&k={}&co={}"
+    client = requests.Session()
+    client.headers.update({
+        'content-type': 'application/x-www-form-urlencoded'
+    })
+    matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)[0]
+    url_base += matches[0]+'/'
+    params = matches[1]
+    res = client.get(url_base+'anchor', params=params)
+    return res.text
+    
+# -------------------------------------------
+
+ans = RecaptchaV3(ANCHOR_URL)
+
+print(ans)
