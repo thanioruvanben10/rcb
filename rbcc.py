@@ -31,6 +31,7 @@ def login(mobile_number):
         sys.exit()
 
 def load_creds(creds):
+    global ssotoken,uniqueID
     try:
         ssotoken = creds['ssoToken']
         uniqueID = creds['uniqueId']
