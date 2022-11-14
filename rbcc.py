@@ -61,7 +61,7 @@ def get_manifest(VideoID):
     return json.loads(response.text)
 
 vidid = input("Enter VideoId : ")
-if vidid==""
+if vidid=="":
     vidid = "003c2a70247511edbfd9c13b366470c9"
 else:
     pass
