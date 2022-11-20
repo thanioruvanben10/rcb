@@ -1,4 +1,10 @@
 import requests,json
+
+Request_URL = "https://prod.media.jio.com/apis/common/v3/playbackrights/get/"
+Meta_URL = "https://prod.media.jio.com/apis/common/v3/metamore/get/"
+OTPSendURL = "https://prod.media.jio.com/apis/common/v3/login/sendotp"
+OTPVerifyURL = "https://prod.media.jio.com/apis/common/v3/login/verifyotp"
+
 def login(mobile_number):
     send = requests.post(url = OTPSendURL, headers = {
     'authority': 'prod.media.jio.com',
