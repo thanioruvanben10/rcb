@@ -1,34 +1,21 @@
-import re
-import requests
+import cloudscraper, requests
+from bs4 import BeautifulSoup
 
-'''
+url = input("Enter Url : ")
 
-Search for "anchor" in the network tab while the site is loading to obtain the url
+def rocklinks_bypass(url):
+        RLDOMAIN ="https://share.techymedies.com"
+        client = cloudscraper.create_scraper(allow_brotli=False)
+        code = url.split("/")[-1]
+        final_url = f"{RLDOMAIN}/{code}" 
+        resp = client.get(final_url)
+        soup = BeautifulSoup(resp.content, "html.parser")
+        try: inputs = soup.find(id="go-link").find_all(name="input")
+        except: return "Incorrect Link"
+        data = { input.get('name'): input.get('value') for input in inputs }
+        h = { "x-requested-with": "XMLHttpRequest" }
+        time.sleep(5)
+        r = client.post(f"{RLDOMAIN}/links/go", data=data, headers=h)
+        return r.json()['url']
 
-anchor url should look like:
-https://www.google.com/recaptcha/api2/anchor?ar=1&k=...
-
-'''
-
-ANCHOR_URL = "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Lcr1ncUAAAAAH3cghg6cOTPGARa8adOf-y9zv2x&co=aHR0cHM6Ly9vdW8uaW86NDQz&hl=en&v=1B_yv3CBEV10KtI2HJ6eEXhJ&size=invisible&cb=4xnsug1vufyr"
-
-# -------------------------------------------
-
-def RecaptchaV3(ANCHOR_URL):
-    url_base = 'https://www.google.com/recaptcha/'
-    post_data = "v={}&reason=q&c={}&k={}&co={}"
-    client = requests.Session()
-    client.headers.update({
-        'content-type': 'application/x-www-form-urlencoded'
-    })
-    matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)[0]
-    url_base += matches[0]+'/'
-    params = matches[1]
-    res = client.get(url_base+'anchor', params=params)
-    return res.text
-    
-# -------------------------------------------
-
-ans = RecaptchaV3(ANCHOR_URL)
-
-print(ans)
+print(rocklinks_bypass(url))
